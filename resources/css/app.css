@@ -2,7 +2,3 @@
 .router-link-exact-active{
     color: green;
 }
-.nav-container{
-    display: flex;
-    justify-content: space-between;
-}

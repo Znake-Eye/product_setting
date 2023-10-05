@@ -1,5 +1,5 @@
 <template>
-    <div class="nav-container flex">
+    <div class="bg-blue-500 flex justify-between p-3">
         <nav>
             <router-link to="/">Home</router-link>
             <router-link to="/about">About</router-link>
