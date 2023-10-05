@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('category', function (Blueprint $table) {
+            $table->id();
+            $table->string('catID');
+            $table->string('catName');
+            $table->string('catNamekh');
+            $table->string('created_by');
+            $table->string('updated_by');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('category');
     }
 };
