@@ -1,0 +1,8 @@
+<template>
+    <!-- <Navigation/> -->
+    <h1>Home page</h1>
+</template>
+<script setup>
+
+
+</script>
