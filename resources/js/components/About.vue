@@ -1,4 +1,5 @@
 <template>
+    <Navigation/>
     <h1>This is about page</h1>
     <h1>Date : {{ date }}</h1>
     <h3>count : {{ count }}</h3>

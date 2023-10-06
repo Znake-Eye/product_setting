@@ -2,3 +2,14 @@
 .router-link-exact-active{
     color: green;
 }
+input{
+    border: 1px solid gray;
+    outline: none;
+    margin-left: 20px;
+    border-radius: 4px;
+}
+button{
+    padding: 5px !important;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
