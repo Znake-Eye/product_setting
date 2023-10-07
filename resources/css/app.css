@@ -13,3 +13,11 @@ button{
     border: 1px solid gray;
     border-radius: 5px;
 }
+table{
+    border: 1px solid gray;
+}
+th, td{
+    border: 1px solid gray;
+    text-align: center;
+    padding: 5px 5px;
+}
