@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, id) in data" :key="id">
+                <tr v-for="(item, id) in peopleList" :key="id">
                     <td>{{ id + 1 }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.sex }}</td>
@@ -82,6 +82,10 @@
         let total = 30
         console.log("this is computed property")
         return  count.value + total
+    })
+
+    const peopleList = computed(() => {
+        return data.filter((el) => (el.name.toLocaleLowerCase()).includes((search.value).toLocaleLowerCase()))
     })
    
 

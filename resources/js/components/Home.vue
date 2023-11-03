@@ -3,6 +3,13 @@
     <h1>Home page</h1>
     <h2>Date : {{ date }}</h2>
     <center>
+        <input type="text" v-model="form.id" placeholder="id"/>
+        <input type="text" v-model="form.name" placeholder="name" />
+        <input type="text" v-model="form.qty" placeholder="qty" />
+        <input type="text" v-model="form.price" placeholder="price" />
+        <button @click="addNew()">Insert</button>
+    </center>
+    <center>
         <h2>List items</h2>
         <input placeholder="search" type="search" v-model="search" @input="searchItem()"/>
         <table>
@@ -37,7 +44,10 @@
     //decleration
     const date = ref('')
     const search = ref('')
-    const items = reactive([
+    const form = ref({
+        id : null,name : null,qty : 0, price : 0
+    })
+    var items = reactive([
         {id: 1, name : 'Apple', qty : 1, price : 1000},
         {id: 2, name : 'Orange', qty : 1, price : 1000},
         {id: 3, name : 'Mango', qty : 1, price : 500},
@@ -46,29 +56,28 @@
     ]) 
     const searchItems = reactive([])
 
+    const addNew = () => {
+        console.log(form.value)
+     //   items.push(form.value)
+        console.log(items)
+        var helper = form.value
+
+        items = [...items, helper]
+        console.log(items)
+        form.id = null
+        form.name = null
+        form.qty = 0
+        form.price = 0
+        
+    }
+
     //function
     const Increment = (item) => {
-        item.qty += 1
+        item.qty = parseInt(item.qty) + 1
     }
     const Decrement = (item) => {
         item.qty > 0 ? item.qty -=1 : item.qty = 0 
     }
-
-    const searchItem = () => {
-        // console.log(search.value)
-        if(search.value != ''){
-            items.filter(item => {
-                let isTrue = ((item.name).toLowerCase()).includes(search.value)
-                if(isTrue) items.push(item)
-            })
-        }else{
-            searchItems.values = []
-        }
-        
-        
-        console.log(items)
-    }
-
     
     //hook onMounted
     onMounted(() => {
@@ -96,8 +105,5 @@
     })
 
     
-    
-    //watch property
-    // watch(() => )
 
 </script>
