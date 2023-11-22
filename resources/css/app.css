@@ -32,3 +32,46 @@ th, td{
     max-width: 650px;
     margin: 35px auto;
   }
+
+  /* style for calendar */
+
+
+.calendar-search{
+    display: flex;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+.calendar-header{
+    display: flex;
+    justify-content: space-between;
+}
+.calendar-grid{
+    width: 100%;
+}
+.calendar-youbi:nth-child(1), .calendar-color:nth-child(1) p {
+    background-color: red;
+}
+.outside {
+    background-color: #c3c3c3;
+}
+.day p {
+    display: inline;
+    padding: 4px;
+    background-color: #4397AB;
+    color: #fff;
+}
+.calendar-youbi:nth-child(7n), .calendar-color:nth-child(7n) p {
+    background-color: #668eff;
+}
+.calendar-youbi {
+    font-weight: 700;
+    font-size: 20px;
+    flex: 1 1 0%;
+    padding: 5px 0px;
+    border-right: 1px solid gray;
+    text-align: center;
+    background: #0ba0a0;
+}
+.day{
+    width: fit-content;
+}

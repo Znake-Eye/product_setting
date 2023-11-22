@@ -2,12 +2,10 @@
     <Navigation />
     <h1>Contact page vue for beginner</h1>
     <div>
-        <apexchart widht="70%" height="400"  type="area" :options="options" :series="series"></apexchart>
+        <apexchart widht="70%" height="400"  type="line" :options="options" :series="series"></apexchart>
     </div>
 </template>
 <script>
-    // import VueApexCharts from 'vue-apexcharts'
-
     export default{
         data(){
             return {
@@ -22,7 +20,7 @@
                         width : 1,
                         curve: 'smooth',
                     },
-                    colors: ['#2E93fA', '#66DA26']
+                    colors: ["#ea646c", "#375eda"],
                     
                 },
                 series: [

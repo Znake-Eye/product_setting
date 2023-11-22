@@ -5,6 +5,7 @@
             <router-link to="/about">About</router-link>
             <router-link to="/contact">Contact</router-link>
             <router-link to="post">Post</router-link>
+            <router-link to="/calendar">Calendar</router-link>
         </nav>
         <div class="time">
             {{ dateString }} -- {{ time }}
