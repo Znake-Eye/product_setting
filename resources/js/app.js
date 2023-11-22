@@ -5,6 +5,7 @@ import Home from "./components/Home.vue"
 import About from "./components/About.vue"
 import Contact from "./components/Contact.vue"
 
+import VueApexCharts from "vue3-apexcharts";
 import router from './router';
 
 //component
@@ -23,5 +24,6 @@ import Navigation from "./components/Navigation.vue"
 
 const app = createApp(App)
 app.use(router)
+app.use(VueApexCharts)
 app.component('Navigation', Navigation)
 app.mount("#app")
