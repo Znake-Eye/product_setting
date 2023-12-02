@@ -85,6 +85,11 @@
         setInterval(()=> {
             date.value = new Date().toLocaleTimeString()
         }, 1000)
+
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        console.log('data of session storage is ')
+        console.log(user)
+
     })
 
     //computed property

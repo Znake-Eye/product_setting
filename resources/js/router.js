@@ -22,5 +22,19 @@ const router = createRouter({
     history:createWebHistory(),
     routes
 })
+router.beforeEach(async (to) => {
+    // redirect to login page if not logged in and trying to access a restricted page
+  //  const publicPages = ['/login', '/']
+    const  publicPages = ['/login']
+    const authRequired = !publicPages.includes(to.path);
+    const auth = sessionStorage.getItem('user');
+
+    if (authRequired && !auth) {
+        // auth.returnUrl = to.fullPath;
+      
+        return '/login'
+    }
+   
+});
 
 export default router;

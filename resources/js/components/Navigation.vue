@@ -4,7 +4,7 @@
             <router-link to="/">Home</router-link>
             <router-link to="/about">About</router-link>
             <router-link to="/contact">Contact</router-link>
-            <router-link to="post">Post</router-link>
+            <router-link to="/post">Post</router-link>
             <router-link to="/calendar">Calendar</router-link>
         </nav>
         <div class="time">
@@ -39,6 +39,7 @@
     const logout = () => {
         isLogin.value = false
         router.push({name : 'Login', query:{}})
+        sessionStorage.clear()
     }
     const login = () => {
         isLogin.value = true

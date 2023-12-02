@@ -38,12 +38,13 @@
                 <tr v-for="(week, index) in calendarData" class="v-calendar-weekly__week" :key="index" style="border-left:1px solid gray;border-top:1px solid gray">
                   <td
                   v-for="day in week"
-                  :key="day.day"
+                  :key="day.day" 
                   class="calendar-color"
                   :class="{ outside: day.outside }"
                   style="min-height:125px; height: 78px; width: 10%; padding: 4px 0 0 4px; border-right:1px solid gray; border-bottom:1px solid gray"
                   >
-                    <div class="day"><p>{{ day.day }}</p></div>
+                    <div v-if="checkCurrentDate(day.day,selectedMonth, selectedYear,day.outside )"  class="day"><p style="background-color: green !important;">{{ day.day }}</p></div>
+                    <div v-else class="day"><p>{{ day.day }}</p></div>
                     <div v-if="hasVisitDate(day)" class="mt-10">
                       <p class="day-p">{{ hasVisitDate(day) }}</p>
                       <p class="day-p">Patient</p>
@@ -270,7 +271,25 @@
       };
     },
     methods: {
-  
+
+      //check if current day
+      checkCurrentDate(day, month,year, outside){
+
+        let date = new Date()
+        let curDay = date.getDate()
+        let curMonth = date.getMonth() + 1
+        let curYear = date.getFullYear()
+
+        if(curDay == day && curMonth == month && curYear == year && !outside){
+          return true
+        }
+        else{
+          return false
+        }
+
+
+      },
+
       getUserModal(){
         this.userInfo = true
       },
