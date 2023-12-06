@@ -32,12 +32,12 @@ export default{
                 return text
             }
         }
-        const viewDetail = (id) => {
-            route.push({name : 'DetailPost', query: {id : id}})
-        }
+        // const viewDetail = (id) => {
+        //     route.push({name : 'DetailPost', query: {id : id}})
+        // }
         
 
-        return {snippet, viewDetail}
+        return {snippet}
 
     }
 }

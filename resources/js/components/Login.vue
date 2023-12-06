@@ -24,27 +24,37 @@
 
     const router = useRouter()
 
-    const myUser  = { name : 'Manh Vichhai', email : 'vichhaireal2020@gmail.com', password : '20052003', role : 'Admin'}
+    const myUser  = [
+                        { name : 'Manh Vichhai', email : 'vichhaireal2020@gmail.com', password : '20052003', role : 'Admin'},
+                        { name : 'Znake Eye',    email : 'znakeeye@gmail.com',        password : '0000',     role : 'user'}
+                    ]
+
     const user = reactive({
         name : '',
         password : ''
     })
 
     const login = () => {
-      //  router.push({name : 'Home', query: {id : 1}})
-        if(user.name == myUser.name || user.name == myUser.email){
-            if(user.password == myUser.password){
-               // localStorage.setItem('user', JSON.stringify(myUser))
-                sessionStorage.setItem('user', JSON.stringify(myUser))
-                router.push({name : 'Home'})
+        myUser.forEach(el => {
+             if(user.name == el.name || user.name == el.email){
+                if(user.password == el.password){
+                // localStorage.setItem('user', JSON.stringify(myUser))
+                    sessionStorage.setItem('user', JSON.stringify(el))
+                    if(el.role =='Admin'){
+                        router.push({name : 'Home'})
+                    }
+                    else if(el.role == 'user'){
+                        router.push({name : 'About'})
+                    }
+                    
+                }
+                else{
+                    alert("please check your password again")
+                }
             }
-            else{
-                alert("please check your password again")
-            }
-        }
-        else{
-            alert('please check username again')
-        }
+        })
+
+       
        // router.push({name : 'Home'})
     }
 </script>

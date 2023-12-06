@@ -1,14 +1,16 @@
 <template>
     <Navigation/>
     <h1>Home page</h1>
-    <h2>Date : {{ date }}</h2>
-    <center>
-        <input type="text" v-model="form.id" placeholder="id"/>
-        <input type="text" v-model="form.name" placeholder="name" />
-        <input type="text" v-model="form.qty" placeholder="qty" />
-        <input type="text" v-model="form.price" placeholder="price" />
-        <button @click="addNew()">Insert</button>
-    </center>
+    <input type="file" ref="fileInput" id="file" @change="handleFile()"/>
+
+    <button @click="submit()">Submit</button>
+
+    <a href="uploads/1701526731_CV.pdf">View my CV</a>
+
+    <video controls>
+        <source src="uploads/1701526904_fresh.mp4" />
+    </video>
+    
     <center>
         <h2>List items</h2>
         <input placeholder="search" type="search" v-model="search" @input="searchItem()"/>
@@ -39,11 +41,18 @@
 
 </template>
 <script setup>
-    import {ref, reactive, computed, onMounted, watch} from "vue"
+    import {ref, reactive, computed, onMounted, watch,onBeforeMount} from "vue"
+    import axios from "axios"
+    import { useRouter } from "vue-router";
 
     //decleration
     const date = ref('')
     const search = ref('')
+    const myForm = ref({name : '', file : null})
+    
+    //route
+    const Route = useRouter()
+
     const form = ref({
         id : null,name : null,qty : 0, price : 0
     })
@@ -78,17 +87,27 @@
     const Decrement = (item) => {
         item.qty > 0 ? item.qty -=1 : item.qty = 0 
     }
+    //on before mounted
+    onBeforeMount(() => {
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        console.log('data of session storage is ')
+        console.log(user)
+        if(user.role != 'Admin'){
+            alert('no right to access')
+          //  Route.push({name : 'Login'})
+          history.back()
+        }
+    })
     
     //hook onMounted
     onMounted(() => {
+
         date.value = new Date().toLocaleTimeString()
         setInterval(()=> {
             date.value = new Date().toLocaleTimeString()
         }, 1000)
 
-        const user = JSON.parse(sessionStorage.getItem('user'))
-        console.log('data of session storage is ')
-        console.log(user)
+        
 
     })
 
@@ -108,6 +127,24 @@
             return Number(total_amount).toLocaleString() + " Cheap"
         }
     })
+
+    //hande file input
+    function handleFile(){
+        let file = document.getElementById('file').files[0]
+        console.log(file)
+        myForm.value.file = file
+    }
+    function submit(){
+        myForm.value.name = "Manh Vichhai"
+        axios.post('api/uploadfile',myForm.value, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }},)
+            .then(res => {
+                console.log(res.data)
+            })
+    }
+
 
     
 
