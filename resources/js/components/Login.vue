@@ -8,53 +8,82 @@
         </div>
         <div class="w-1/2  h-screen flex flex-col justify-center ml-8">
             <div class="box-login h-fit flex flex-col gap-4 w-1/3">
-                <input v-model="user.name" @keydown.enter="login" class="p-1 border-gray-400 outline-none" type="text" placeholder="Email or phone number"/>
+                <input v-model="user.email" @keydown.enter="login" class="p-1 border-gray-400 outline-none" type="text" placeholder="Email or phone number"/>
                 <input v-model="user.password" @keydown.enter="login" class="p-1 border-gray-400 outline-none" type="password" placeholder="password" />
                 <button @click="login()" type="button" class="border-none w-full bg-blue-500 text-white">Log In</button>
                 <p class="w-full text-blue-500 text-center font-semibold">Haven't any account?</p>
-                <button type="button" class="border-none w-full bg-green-500 text-center text-white">Create New Account</button>
+                <!-- <div>
+                    <button @click="" type="button" class="border-none w-full bg-blue-500 text-white">Login with Google</button>
+                </div> -->
+
+                <button @click="loginGoogle">Login Using Google</button>
+                
+                <button @click="register()" type="button" class="border-none w-full bg-green-500 text-center text-white">Create New Account</button>
             </div>
         </div>
     </div>
+
 </template>
 
 <script setup>
     import {ref, onMounted, reactive} from "vue"
     import {useRouter} from "vue-router"
+    import axios from "axios";
+    import Auth from "../Auth";
+    import { googleAuthCodeLogin,googleTokenLogin } from "vue3-google-login"
 
     const router = useRouter()
 
-    const myUser  = [
-                        { name : 'Manh Vichhai', email : 'vichhaireal2020@gmail.com', password : '20052003', role : 'Admin'},
-                        { name : 'Znake Eye',    email : 'znakeeye@gmail.com',        password : '0000',     role : 'user'}
-                    ]
-
     const user = reactive({
-        name : '',
+        email : '',
         password : ''
+    
     })
 
+    const loginGoogle = () => {
+        googleTokenLogin().then((response) => {
+            console.log("Handle the response", response)
+           getUserData(response.access_token)
+          
+            
+        })
+    }
+
+    const getUserData = async (accessToken) => {
+      // Make a request to the Google API to get user data
+      const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`);
+      const userData = await response.json();
+      console.log('user data')
+      console.log(userData)
+      userData.role = 'user'
+      Auth.login(accessToken,userData)
+      router.push({name : 'Home'})
+    
+    };
+    
+    const register = () => {
+        router.push({name : 'Register'})
+    }
+    const callback = (response) => {
+        console.log("Handle the response", response)
+    }
+
     const login = () => {
-        myUser.forEach(el => {
-             if(user.name == el.name || user.name == el.email){
-                if(user.password == el.password){
-                // localStorage.setItem('user', JSON.stringify(myUser))
-                    sessionStorage.setItem('user', JSON.stringify(el))
-                    if(el.role =='Admin'){
+        axios.post('api/login', user)
+            .then(res => {
+                if(res.data.status){
+                    Auth.login(res.data.access_token,res.data.user)
+                    if(Auth.User.role == 'admin'){
                         router.push({name : 'Home'})
-                    }
-                    else if(el.role == 'user'){
+                    }else{
                         router.push({name : 'About'})
                     }
                     
                 }
                 else{
-                    alert("please check your password again")
+                    let message = res.data.message+". Please check email and password again"
+                    alert(message)
                 }
-            }
-        })
-
-       
-       // router.push({name : 'Home'})
+            })
     }
 </script>

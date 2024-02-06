@@ -11,7 +11,7 @@
             {{ dateString }} -- {{ time }}
         </div>
         <div v-if="isLogin">
-            <button @click="logout()">Logout</button>
+            <button @click="Logout()">Logout</button>
         </div>
         <div v-else>
             <button @click="login()">Login</button>
@@ -23,9 +23,14 @@
 <script setup>
     import { ref,onMounted, computed } from "vue";
     import {useRouter} from "vue-router"
+    import Auth from "../Auth";
+
 
     const dateString = ref('')
     const time = ref('')
+
+    const user = ref({})
+    user.value = JSON.parse(sessionStorage.getItem('user'))
 
 
 
@@ -36,7 +41,8 @@
     const router = useRouter()
     var isLogin = ref(true)
 
-    const logout = () => {
+
+    const Logout = () => {
         isLogin.value = false
         router.push({name : 'Login', query:{}})
         sessionStorage.clear()

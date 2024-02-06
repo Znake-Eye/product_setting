@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UploadfileController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->post('/uploadfile', [UploadfileController::class, 'uploadFile']);
 
 Route::post('/uploadfile', [UploadfileController::class, 'uploadFile']);
-// Route::group(['prefix' => 'v1'], function () {
-//     Route::post('/uploadfile', [UploadfileController::class, 'uploadFile']);
+// Route::post('createUser', [UserController::class, 'createUser']);
+Route::post('login', [UserController::class, 'login']);
+
+Route::post('/register', [UserController::class, 'Register']);
+
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     // Your protected routes go here
+    
+   
+   
+    
 // });
+
+Route::get('getUser', [UserController::class, 'getUser']);

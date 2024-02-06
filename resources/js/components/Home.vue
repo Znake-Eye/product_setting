@@ -44,14 +44,18 @@
     import {ref, reactive, computed, onMounted, watch,onBeforeMount} from "vue"
     import axios from "axios"
     import { useRouter } from "vue-router";
+    import Auth from "../Auth";
 
     //decleration
     const date = ref('')
     const search = ref('')
     const myForm = ref({name : '', file : null})
+
+    var User = reactive([])
     
     //route
     const Route = useRouter()
+
 
     const form = ref({
         id : null,name : null,qty : 0, price : 0
@@ -64,6 +68,23 @@
         {id: 5, name : 'Juice', qty : 1, price : 2000}
     ]) 
     const searchItems = reactive([])
+
+    const getUser =async () => {
+        try {
+            // console.log('token')
+            // console.log(Auth.Token)
+             axios.get('api/getUser', {headers :{"Authorization" : Auth.Token}})
+                .then(res => {
+                    User = res.data
+                    console.log('user')
+                    console.log(User)
+                })
+        } catch (error) {
+            
+        }
+        
+            
+    }
 
     const addNew = () => {
         console.log(form.value)
@@ -89,18 +110,15 @@
     }
     //on before mounted
     onBeforeMount(() => {
-        const user = JSON.parse(sessionStorage.getItem('user'))
-        console.log('data of session storage is ')
-        console.log(user)
-        if(user.role != 'Admin'){
-            alert('no right to access')
-          //  Route.push({name : 'Login'})
-          history.back()
-        }
+       
     })
     
     //hook onMounted
     onMounted(() => {
+
+        console.log(Auth.User)
+        getUser()
+       
 
         date.value = new Date().toLocaleTimeString()
         setInterval(()=> {

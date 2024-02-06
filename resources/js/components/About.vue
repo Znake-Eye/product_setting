@@ -36,6 +36,7 @@
 <script setup>
     import {ref,onMounted, computed, reactive} from  "vue"
     import {useRouter} from "vue-router"
+    import Auth from "../Auth";
 
     const route = useRouter()
     const date = new Date()
@@ -75,6 +76,7 @@
     onMounted(() => {
         console.log("Mounted component")
         console.log(data)
+        console.log(Auth.User)
         
     })
 
