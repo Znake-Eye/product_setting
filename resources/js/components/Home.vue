@@ -5,10 +5,10 @@
 
     <button @click="submit()">Submit</button>
 
-    <a href="uploads/1701526731_CV.pdf">View my CV</a>
+    <a href="/uploads/1701526731_CV.pdf">View my CV</a>
 
     <video controls>
-        <source src="uploads/1701526904_fresh.mp4" />
+        <source src="/uploads/1701526904_fresh.mp4" />
     </video>
     
     <center>
